@@ -1,0 +1,120 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+/*******************************************************************************
+ * Copyright 2013 Adnan Urooj (Deminem)
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *    
+ * http://www.apache.org/licenses/LICENSE-2.0
+ * 	
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ *******************************************************************************/
+-->
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scrollbars="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:orientation="vertical"
+            android:paddingLeft="20dip"
+            android:paddingRight="20dip" >
+
+            <TextView
+                android:id="@+id/dialog_settings_num_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:singleLine="true"
+                android:visibility="gone" />
+
+            <View style="@style/filler_15dip" />
+
+            <TextView
+                android:id="@+id/dialog_settings_encoding_format_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Encoder:"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/dialog_settings_encoding_format_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true" />
+
+            <TextView
+                android:id="@+id/dialog_settings_name_container_format_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Container:"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/dialog_settings_container_format_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true" />
+
+            <TextView
+                android:id="@+id/dialog_settings_name_resolution_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:text="Resolution"
+                android:textStyle="bold"
+                android:typeface="serif"
+                android:visibility="visible" />
+
+            <Spinner
+                android:id="@+id/dialog_settings_resolution_spinner"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:drawSelectorOnTop="true" />
+
+            <TableLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:paddingTop="20dip" >
+
+                <TableRow android:gravity="center_horizontal" >
+
+                    <Button
+                        android:id="@+id/dialog_settings_btn1"
+                        android:layout_width="100dip"
+                        android:layout_height="wrap_content"
+                        android:text="Update" />
+
+                    <Button
+                        android:id="@+id/dialog_settings_btn2"
+                        android:layout_width="100dip"
+                        android:layout_height="wrap_content"
+                        android:text="Cancel" />
+                </TableRow>
+            </TableLayout>
+
+            <View style="@style/filler_15dip" />
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

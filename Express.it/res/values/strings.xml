@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">Express.it</string>
+    
+    
+    <!-- Nav Drawer Menu Items Titles-->
+    <string-array name="nav_drawer_items">
+        <item >Home</item>
+    </string-array>
+    
+    <!-- Nav Drawer List Item Icons -->
+    <!-- Keep them in order as the titles are in -->
+    <array name="nav_drawer_icons">
+        <item>@drawable/ic_home</item>
+    </array>
+    <string name="desc_list_item_icon">Item Icon</string>
+    
+    <string name="publish_story_image">Publish Image Story</string>
+    <string name="publish_story_video">Publish Video Story</string>
+    <string name="image_chooser">Image Chooser</string>
+    <string name="video_chooser">Video Chooser</string>
+    <string name="story_title">Add a caption</string>
+    <string name="story_desc">Add a description</string>
+    <string name="button_share">Share</string>
+    <string name="image_text">Image Picker</string>
+    <string name="video_text">Video Picker</string>
+    <string name="select_Category_text">Select Category</string>
+    <string name="validation_title_error">Title can not be empty</string>
+    <string name="validation_desc_error">Description can not be empty</string>
+    <string name="validation_spotlight_error">Image can not be empty</string>
+    <string name="hello_world">Hello world!</string>
+    <string name="action_settings">Settings</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    
+    
+    <string name="no_network_some_feature_not_available">Some features are not available without a network connection</string>
+    <string name="no_internet_available">Not connected with internet. Please try again</string>
+    
+    <string name="home_grid_view">Home Grid View</string>
+    <string name="grid_progress_view">Home Grid Progress View</string>
+    <string name="grid_item_image">Grid Item Image View</string>
+    <string name="grid_item_watermark">Grid Item Video View</string>
+
+</resources>

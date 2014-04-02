@@ -1,0 +1,53 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/app_bg_color"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MainGridFragment"  >
+
+	<!-- <GridView
+        android:id="@+id/home_grid_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:layout_margin="10dp"
+        android:stretchMode="columnWidth"
+        android:numColumns="2" 
+        /> -->
+	
+	<!-- The PullToRefreshGridView replaces a standard GridView widget. -->
+    <com.handmark.pulltorefresh.library.PullToRefreshGridView
+        xmlns:ptr="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/home_grid_view"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent"
+        android:numColumns="2"
+        android:background="@color/appBgColor"
+        android:cacheColorHint="@color/cacheColorHint"
+        android:verticalSpacing="10dp"
+        android:horizontalSpacing="10dp"
+        android:stretchMode="columnWidth"
+        android:scrollbars="none"
+        android:layout_margin="10dp"/>
+
+	<ProgressBar
+        android:id="@+id/grid_progress_view"
+        style="?android:attr/progressBarStyleLarge"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_centerVertical="true"
+        android:layout_gravity="center"
+        android:background="@android:color/transparent"
+        android:maxHeight="48dp"
+        android:maxWidth="48dp"
+        android:minHeight="38dip"
+        android:minWidth="38dip"
+        android:visibility="visible" />
+	
+</RelativeLayout>

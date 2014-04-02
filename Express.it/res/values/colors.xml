@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<resources>
+    <color name="text_color">#454545</color> 
+	<color name="text_hint_color">#737373</color> 
+
+    <color name="app_bg_color">#e3e2dd</color>
+    
+    <color name="app_selection_color">#ff33b5e5</color>
+    
+     <!-- App background color -->
+    <color name="appBgColor">#E6E6E6</color>
+    <color name="appNavTitleColor">#A5A5A5</color>
+    
+     <!-- Page Indidcators -->
+    <color name="pageIndicatorSelectedColor">#FF888888</color>
+    <color name="pageIndicatorUnselectedColor">#AEAEAEAE</color>
+   
+    <!-- Pull to Refersh -->
+    <color name="pullToRefreshTextTitleColor">#FF888888</color>
+    <color name="pullToRefreshTextSubTitleColor">#FF888888</color>
+    
+    <!-- androidColor -->
+    <color name="androidColorWhite">#FFFFFF</color>
+    
+    <color name="androidColorBlue">#33B5E5</color>
+    <color name="androidColorRed">#FB0404</color>
+    <color name="androidColorPurple">#AA66CC</color>
+    <color name="androidColorGreen">#99CC00</color>
+    <color name="androidColorYellow">#FFBB33</color>
+    <color name="androidColorBlack">#000000</color>
+  
+    <!--  setting transparent color -->
+    <color name="cacheColorHint">#00000000</color>
+    
+    
+    <!-- SlideMenu Items color -->
+    <color name="list_item_title">#fff</color>
+    <color name="list_background">#303030</color>
+    <color name="list_background_pressed">#992416</color>
+    <color name="list_divider">#272727</color>
+    
+</resources>
