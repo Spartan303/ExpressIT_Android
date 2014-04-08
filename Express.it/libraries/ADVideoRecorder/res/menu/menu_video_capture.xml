@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" 
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <item
+        android:id="@+id/menu_item_flip_camera"
+        android:alphabeticShortcut="g"
+        android:showAsAction="always"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_camera_flip"
+        android:visible="true"/>
+        
+</menu>

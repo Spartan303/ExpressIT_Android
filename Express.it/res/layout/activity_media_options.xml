@@ -1,0 +1,51 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/mainLayout"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/app_bg_color"
+    android:gravity="center"
+    android:orientation="vertical"
+    tools:context=".MediaOptionsActivity">
+    
+    
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/app_bg_color">
+        
+        <Button android:id="@+id/pick_Photo"
+                android:layout_width="100dip"
+                android:layout_height="60dip"
+                android:text="@string/pick_Photo"
+                android:textSize="14sp" />
+       
+        <Button android:id="@+id/pick_video"
+                android:layout_width="100dip"
+                android:layout_toRightOf="@+id/pick_Photo"
+                android:layout_height="60dip"
+                android:text="@string/pick_video"
+                android:textSize="14sp" />
+        
+        <Button android:id="@+id/pick_gallery"
+                android:layout_width="100dip"
+                android:layout_height="60dip"
+                android:layout_below="@+id/pick_Photo"
+                android:text="@string/pick_gallery"
+                android:textSize="14sp" />
+        
+        <Button android:id="@+id/pick_url"
+                android:layout_width="100dip"
+                android:layout_height="60dip"
+                android:layout_toRightOf="@+id/pick_gallery"
+                android:layout_below="@+id/pick_video"
+                android:text="@string/pick_url"
+                android:textSize="14sp" />
+         
+        
+        </RelativeLayout>
+    
+    
+   	</LinearLayout>
+

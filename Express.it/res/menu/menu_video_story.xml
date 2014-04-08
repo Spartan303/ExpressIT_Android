@@ -4,10 +4,9 @@
     <item
         android:id="@+id/menu_item_video_gallery"
         android:alphabeticShortcut="g"
-        android:icon="@drawable/ico_cam"
         android:showAsAction="always"
         app:showAsAction="always"
-        android:title="@string/video_text"
+        android:title="@string/upload_media"
         android:visible="true"/>
         
 </menu>

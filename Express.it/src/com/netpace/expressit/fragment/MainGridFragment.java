@@ -43,6 +43,7 @@ import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.ad.mediasharing.ADMediaSharingUtil;
+import com.amazonaws.org.apache.http.HttpStatus;
 import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
@@ -55,6 +56,7 @@ import com.koushikdutta.async.future.Future;
 import com.koushikdutta.async.future.FutureCallback;
 import com.koushikdutta.ion.Response;
 import com.netpace.expressit.R;
+import com.netpace.expressit.activity.MediaOptionsActivity;
 import com.netpace.expressit.activity.UploadImageStoryActivity;
 import com.netpace.expressit.activity.UploadVideoStoryActivity;
 import com.netpace.expressit.adapter.HomeGridAdapter;
@@ -144,7 +146,8 @@ public class MainGridFragment extends Fragment implements OnItemClickListener{
 		// TODO Auto-generated method stub
 		switch (item.getItemId()) {
 		case R.id.menu_item_media_upload:
-			showUploadMediaDailog();
+			Intent intent = new Intent(getActivity(), MediaOptionsActivity.class);
+			startActivity(intent);
 			break;
 
 		default:
@@ -153,27 +156,6 @@ public class MainGridFragment extends Fragment implements OnItemClickListener{
 		return false;
 	}
 	
-	private void showUploadMediaDailog(){
-		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
-		String[] optionArray = {"Image","Video"};
-		builder.setTitle("Choose Media").setItems(optionArray, new DialogInterface.OnClickListener() {
-			
-			@Override
-			public void onClick(DialogInterface arg0, int arg1) {
-				switch (arg1) {
-				case 0:
-					gotoUploadImageStory();
-					break;
-				case 1:
-					gotoUploadVideoStory();
-					break;
-				default:
-					break;
-				}
-			}
-		}).show();
-	}
-
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 		// TODO Auto-generated method stub
@@ -252,25 +234,30 @@ public class MainGridFragment extends Fragment implements OnItemClickListener{
     	if(refresh)page=0;
     	 
     	loading= ADMediaSharingUtil.getRestClient(getActivity())
-    	.load(URLUtil.getURIWithPageNoAndSize(AppConstants.GET_MEDIA_URL, page, AppConstants.MEDIA_CHUNK_SIZE))
+    	.load(AppConstants.DOMAIN_URL+AppConstants.GET_MEDIA_URL)
+    	.setHeader("page", page+"")
+    	.setHeader("size", AppConstants.MEDIA_CHUNK_SIZE+"")
     	.asJsonArray()
     	.withResponse()
     	.setCallback(new FutureCallback<Response<JsonArray>>() {
 			@Override
 			public void onCompleted(Exception arg0, Response<JsonArray> arg1) {
-				if(arg1.getResult().size() > 0){
-					if(refresh) mediaArray.clear();
-					Iterator<JsonElement> element = arg1.getResult().iterator();
-					Gson gson = new Gson();
-					while (element.hasNext()) {
-						JsonElement jsonElement = (JsonElement) element.next();
-						Media media =  gson.fromJson(jsonElement, Media.class);
-						mediaArray.add(media);
+				if(arg0 == null && arg1.getHeaders().getResponseCode() == HttpStatus.SC_OK){
+					if(arg1.getResult().size() > 0){
+						if(refresh) mediaArray.clear();
+						Iterator<JsonElement> element = arg1.getResult().iterator();
+						Gson gson = new Gson();
+						while (element.hasNext()) {
+							JsonElement jsonElement = (JsonElement) element.next();
+							Media media =  gson.fromJson(jsonElement, Media.class);
+							mediaArray.add(media);
+						}
+						updateGridViewData(mediaArray);
+					}else{
+						if(progressBar.isShown())progressBar.setVisibility(View.INVISIBLE);
+						Log.i(TAG, "Data not found...!!!");
+						mPullRefreshGridView.onRefreshComplete();
 					}
-					updateGridViewData(mediaArray);
-				}else{
-					Log.i(TAG, "Data not found...!!!");
-					mPullRefreshGridView.onRefreshComplete();
 				}
 			}
 		});

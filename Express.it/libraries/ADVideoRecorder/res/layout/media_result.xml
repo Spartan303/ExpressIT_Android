@@ -26,7 +26,7 @@
     android:background="@android:color/black"
     android:orientation="vertical" >
 
-    <RelativeLayout
+    <!-- <RelativeLayout
         android:id="@+id/nav_bar"
         android:layout_width="fill_parent"
         android:layout_height="48dip"
@@ -51,13 +51,12 @@
             android:textColor="@color/btn_text_color"
             android:textSize="18sp"
             android:textStyle="bold" />
-    </RelativeLayout>
+    </RelativeLayout> -->
 
     <RelativeLayout
         android:id="@+id/center_panel"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/nav_bar"
         android:orientation="vertical" >
 
         <com.ad.videorecorderlib.ui.ADCustomVideoView
@@ -73,12 +72,11 @@
 
             <Button
                 android:id="@+id/doneBtn"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                
-                android:layout_centerInParent="true"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_done" />
+                android:layout_width="fill_parent"
+                android:layout_height="40dp"
+                android:layout_alignParentBottom="true"
+                android:text="Continue"
+                android:background="#E6E6E6" />
         </RelativeLayout>
     </RelativeLayout>
 

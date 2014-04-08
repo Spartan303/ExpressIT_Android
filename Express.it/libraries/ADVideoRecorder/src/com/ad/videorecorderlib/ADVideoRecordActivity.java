@@ -25,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+
 import android.annotation.SuppressLint;
 import android.annotation.TargetApi;
 import android.app.Activity;
@@ -42,7 +43,10 @@ import android.media.MediaRecorder.VideoEncoder;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.Surface;
 import android.view.SurfaceHolder;
@@ -66,23 +70,25 @@ import com.ad.videorecorderlib.util.ADUtils;
  * 
  */
 
-public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Callback {
+public class ADVideoRecordActivity extends ActionBarActivity implements SurfaceHolder.Callback {
 
 	protected static final String TAG = ADVideoRecordActivity.class.getSimpleName();
 
 	private final int PROGESS_TIMER_RUNTIME = Config.getInstance().getMaxRecordDurationInMs();
+	
+	public final String CAMERA_FACE = TAG+"cameraFace";  
 	
 	public final static int RESULT_VIDEO_CAPTURE_PATH_CODE = 589; 
 	
 	public final static String RESULT_VIDEO_CAPTURE = "resultVideoOutputCapture"; 
 	
 	private ProgressBar mProgressBar;
-	private TextView mProgressTextView;
-	private TextView mTimeTextView;
 	
 	private Button prDiscardBtn;
 	private Button prNextBtn;
 	private Button prSettingsBtn;
+	private Button gallertBtn;
+	private Button videoCaptureBtn;
 	
 	private Context prContext;
 	
@@ -99,6 +105,10 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 
 	private boolean isCameraSurfaceTouched;
 	
+	private int currentCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
+	
+	private boolean isStatusBarEnabled = true;
+	
 	public static Intent newInstance(Activity activity) {
 
 		Intent intent = new Intent(activity, ADVideoRecordActivity.class);
@@ -108,12 +118,9 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		prContext = this.getApplicationContext();
+//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.media_record);
-
+		
 		// Initialize Settings
 		initializeSettings();
 		
@@ -121,13 +128,14 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 		mProgressBar = (ProgressBar)findViewById(R.id.recording_progressBar);
 		mProgressBar.setMax(PROGESS_TIMER_RUNTIME);
 		
-		mProgressTextView = (TextView) findViewById(R.id.textView);
-		mTimeTextView = (TextView) findViewById(R.id.textView2);
-		
 		prDiscardBtn = (Button) findViewById(R.id.discardBtn);
 		prNextBtn = (Button) findViewById(R.id.nextBtn);
+		
 		prSettingsBtn = (Button) findViewById(R.id.main_btn2);
 		prSettingsBtn.setVisibility(View.GONE);
+		
+		gallertBtn = (Button) findViewById(R.id.galleryBtn);
+		videoCaptureBtn = (Button) findViewById(R.id.captureVideoBtn);
 
 		prSurfaceView = (SurfaceView) findViewById(R.id.surface_camera);
 		ViewGroup.LayoutParams params = (ViewGroup.LayoutParams)prSurfaceView.getLayoutParams();
@@ -203,9 +211,8 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 				final int action = event.getAction();
 				
 				if (action == MotionEvent.ACTION_DOWN) {
-					
 					//Process the recorded video on next button.
-					processRecording( Boolean.TRUE );
+						processRecording( Boolean.TRUE );
 				}
 
 				return true;
@@ -222,13 +229,93 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 //				startActivityForResult(lIntent, REQUEST_DECODING_OPTIONS);
 //			}
 //		});
+		
+		gallertBtn.setOnClickListener(new View.OnClickListener() {
+			@Override
+			public void onClick(View arg0) {
+				Toast.makeText(ADVideoRecordActivity.this,"In progress", Toast.LENGTH_SHORT).show();
+			}
+		});
+		
+		videoCaptureBtn.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View v, MotionEvent event) {
+				final int action = event.getAction();
+				if(action == MotionEvent.ACTION_DOWN){
+					isCameraSurfaceTouched = true;
+					if (isCameraSurfaceTouched && prRecordInProcess == false) {
+						
+						if (!isStatusBarEnabled) {
+							enableActionBar(isStatusBarEnabled);
+							enableProgressBar(isStatusBarEnabled);
+						}
+						// Start Recording
+			        	startRecording();
+					}
+				}
+				if(action == MotionEvent.ACTION_UP){
+					isCameraSurfaceTouched = false;
+					
+		        	// Check if the video recording elapsed time is finished
+		        	// then proceed for processing and finalizing.
+		        	if (mRecordProgressBar.getProgressStatus() == PROGESS_TIMER_RUNTIME) {
+		        		
+		        		stopRecording();		//stop recording
+		        		processRecording( Boolean.TRUE );		// final process recording 
+		        	}
+		        	else {
+		        		
+	        			// Stop Recording
+		        		stopRecording();
+		        	}
+				}
+				return false;
+			}
+		});
 
 		prSurfaceHolder = prSurfaceView.getHolder();
 		prSurfaceHolder.addCallback(this);
 		prSurfaceHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
 		prMediaRecorder = new MediaRecorder();
+
+		// Set the action bar
+		enableActionBar(isStatusBarEnabled);
+		enableProgressBar(isStatusBarEnabled);
 	}
  
+	
+	
+	
+	
+	
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		getMenuInflater().inflate(R.menu.menu_video_capture, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home) {
+			this.onBackPressed();
+			return true;
+		} else if (itemId == R.id.menu_item_flip_camera) {
+			changeCameraFacing(this, prCamera);
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		return super.onPrepareOptionsMenu(menu);
+	}
+
 	/**
 	 * Camera and Preview View Methods
 	 */
@@ -243,7 +330,7 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 		try {
 			prCamera.setPreviewDisplay(_holder);
 			prCamera.startPreview();
-			setCameraDisplayOrientation(this, CameraInfo.CAMERA_FACING_BACK, prCamera);
+			setCameraDisplayOrientation(this, currentCameraId, prCamera);
 			
 			// prPreviewRunning = true;
 		} catch (IOException _le) {
@@ -375,19 +462,15 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 				
 				// set the file output format: 3gp or mp4
 				// state: Initialized=>DataSourceConfigured
-				String lDisplayMsg = "Current container format: ";
 				String lVideoFileFullPath;
 
 				if (Config.getInstance().getPuContainerFormat() == MediaRecorder.OutputFormat.MPEG_4) {
-					lDisplayMsg += "MP4\n";
 					lVideoFileFullPath = ".mp4";
 					prMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.MPEG_4);
 				} else if (Config.getInstance().getPuContainerFormat() == MediaRecorder.OutputFormat.THREE_GPP) {
-					lDisplayMsg += "3GP\n";
 					lVideoFileFullPath = ".3gp";
 					prMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 				} else {
-					lDisplayMsg += "3GP\n";
 					lVideoFileFullPath = ".3gp";
 					prMediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);
 				}
@@ -398,18 +481,13 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 				prMediaRecorder.setAudioChannels(Config.getInstance()
 						.getAudioChannel());
 
-				lDisplayMsg += "Current encoding format: ";
 				if (Config.getInstance().getPuEncodingFormat() == VideoEncoder.H263) {
-					lDisplayMsg += "H263\n";
 					prMediaRecorder.setVideoEncoder(VideoEncoder.H263);
 				} else if (Config.getInstance().getPuEncodingFormat() == VideoEncoder.MPEG_4_SP) {
-					lDisplayMsg += "MPEG4-SP\n";
 					prMediaRecorder.setVideoEncoder(VideoEncoder.MPEG_4_SP);
 				} else if (Config.getInstance().getPuEncodingFormat() == VideoEncoder.H264) {
-					lDisplayMsg += "H264\n";
 					prMediaRecorder.setVideoEncoder(VideoEncoder.H264);
 				} else {
-					lDisplayMsg += "H263\n";
 					prMediaRecorder.setVideoEncoder(VideoEncoder.H263);
 				}
 
@@ -420,18 +498,13 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 				prMediaRecorder.setOutputFile(prRecordedFile.getPath());
 				mClipSession = new ADVideoClipsSession(clipId, prRecordedFile, mRecordProgressBar.getProgressStatus());
 						
-				lDisplayMsg += "Current resolution format: ";
 				if (Config.getInstance().getPuResolutionChoice() == Config.ScreenResolution.SCREEN_RES_176_144.value()) {
-					lDisplayMsg += "176 x 144 \n";
 					prMediaRecorder.setVideoSize(176, 144);
 				} else if (Config.getInstance().getPuResolutionChoice() == Config.ScreenResolution.SCREEN_RES_320_240.value()) {
-					lDisplayMsg += "320 x 240 \n";
 					prMediaRecorder.setVideoSize(320, 240);
 				} else if (Config.getInstance().getPuResolutionChoice() == Config.ScreenResolution.SCREEN_RES_640_480.value()) {
-					lDisplayMsg += "640 x 480 \n";
 					prMediaRecorder.setVideoSize(640, 480);
 				} else if (Config.getInstance().getPuResolutionChoice() == Config.ScreenResolution.SCREEN_RES_720_480.value()) {
-					lDisplayMsg += "640 x 480 \n";
 					prMediaRecorder.setVideoSize(720, 480);
 				} else {
 					
@@ -440,7 +513,6 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 					prMediaRecorder.setVideoSize(bestSize.width, bestSize.height);
 				}
 
-				Toast.makeText(prContext, lDisplayMsg, Toast.LENGTH_LONG).show();
 				prMediaRecorder.setVideoEncodingBitRate(Config.getInstance()
 						.getVideoBitRate());
 				prMediaRecorder.setVideoFrameRate((int)Config.getInstance()
@@ -713,22 +785,50 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 	           handler.post(new Runnable() {
 	        	   public void run() {
 	        		   mProgressBar.setProgress(timePassed);
-	        		   mProgressTextView.setText("Progress (ms): " + timePassed + "/" + mProgressBar.getMax());
-	        		   ADLogger.debug(TAG, "Progress (Milli seconds): " + timePassed);
-	        		   
-	        		   SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-	        		   Date date = new Date();
-
-	        		   mTimeTextView.setText("Current Time: " + dateFormat.format(date));
-	        		   
-	        		   if (timePassed == Config.getInstance().getMinMediaProcessingThreshold()) {
-	        			   prNextBtn.setVisibility( View.VISIBLE );
-	        		   }
 	        	   }
 	           });
 			}
 		}
 	}
+	
+	
+	private int changeCameraFacing(ADVideoRecordActivity activity,Camera camera){
+		
+		if(currentCameraId == Camera.CameraInfo.CAMERA_FACING_BACK){
+		    currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+		}
+		else {
+		    currentCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
+		}
+		
+		Intent intent = getIntent();
+		intent.putExtra(CAMERA_FACE, currentCameraId);
+		intent.addFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
+//	    finish();
+	    overridePendingTransition(0, 0);
+	    startActivity(intent);
+	    overridePendingTransition(0, 0);
+		
+		/*camera.stopPreview();
+		camera.release();
+		if(currentCameraId == Camera.CameraInfo.CAMERA_FACING_BACK){
+		    currentCameraId = Camera.CameraInfo.CAMERA_FACING_FRONT;
+		}
+		else {
+		    currentCameraId = Camera.CameraInfo.CAMERA_FACING_BACK;
+		}
+		camera = Camera.open(currentCameraId);
+
+		setCameraDisplayOrientation(ADVideoRecordActivity.this, currentCameraId, camera);
+		try {
+			camera.setPreviewDisplay(prSurfaceHolder);
+		} catch (IOException e) {
+		    e.printStackTrace();
+		}
+		camera.startPreview();*/
+		return 0;
+	}
+	
 	
 	@SuppressLint("NewApi")
 	private int setCameraDisplayOrientation(ADVideoRecordActivity activity, int cameraId,
@@ -821,4 +921,35 @@ public class ADVideoRecordActivity extends Activity implements SurfaceHolder.Cal
 		AlertDialog alert = builder.create();
 		alert.show();
 	}
+
+
+	private void enableActionBar(boolean isShow) {
+		
+		if (isShow) {
+			getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+			getSupportActionBar().setDisplayShowHomeEnabled(false);
+			getSupportActionBar().setTitle("Back");
+		}
+		else {
+			getSupportActionBar().hide();
+		}
+		
+		isStatusBarEnabled = !isShow;
+	}
+	
+	private void enableProgressBar(boolean isShow) {
+
+		if (isShow && mProgressBar != null) {
+			mProgressBar.setVisibility(View.VISIBLE);
+			prDiscardBtn.setVisibility(View.VISIBLE);
+			prNextBtn.setVisibility(View.VISIBLE);
+		}
+		else {
+			mProgressBar.setVisibility(View.GONE);
+			prDiscardBtn.setVisibility(View.GONE);
+			prNextBtn.setVisibility(View.GONE);
+		}
+	}
+
 }
+

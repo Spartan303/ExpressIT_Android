@@ -2,7 +2,6 @@ package com.netpace.expressit.utils;
 
 
 import java.io.ByteArrayOutputStream;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.media.ThumbnailUtils;
@@ -11,6 +10,7 @@ import android.net.NetworkInfo;
 import android.net.Uri;
 import android.provider.MediaStore;
 import android.provider.MediaStore.Images;
+import android.widget.Toast;
 
 import com.ad.mediasharing.AmazonS3Settings;
 import com.ad.mediasharing.AmazonS3Settings.AmazonS3UploadType;
@@ -45,4 +45,14 @@ public class Util {
 		String path = Images.Media.insertImage(context.getContentResolver(), thumb, key, null);
 		return Uri.parse(path);
 	}
+	
+	public static void showToast(int message){
+		Context ctx = ApplicationManager.getAppContext();
+		Toast.makeText(ctx, message, Toast.LENGTH_SHORT).show();
+	}
+	
+	public static boolean isImage(String ext){
+		return AppConstants.IMAGE_EXT_ARRAY.contains(ext);
+	}
+	
 }

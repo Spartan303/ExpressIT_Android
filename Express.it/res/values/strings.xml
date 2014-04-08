@@ -2,20 +2,28 @@
 <resources>
 
     <string name="app_name">Express.it</string>
-    
-    
-    <!-- Nav Drawer Menu Items Titles-->
+    <string name="in_progress">This feature is under progress</string>
+
+    <!-- Nav Drawer Menu Items Titles -->
     <string-array name="nav_drawer_items">
-        <item >Home</item>
+        <item>Home</item>
     </string-array>
-    
+
     <!-- Nav Drawer List Item Icons -->
     <!-- Keep them in order as the titles are in -->
     <array name="nav_drawer_icons">
         <item>@drawable/ic_home</item>
     </array>
+
+    <string name="pick_Photo">Photo</string>
+    <string name="pick_video">Video</string>
+    <string name="pick_gallery">Phone Gallery</string>
+    <string name="pick_url">Web URL</string>
+    <string name="imagePreview">Image Preview</string>
+    <string name="flow_continue">Continue</string>
+    <string name="upload_media">upload</string>
+    <string name="save_for_later">save it for later use</string>
     <string name="desc_list_item_icon">Item Icon</string>
-    
     <string name="publish_story_image">Publish Image Story</string>
     <string name="publish_story_video">Publish Video Story</string>
     <string name="image_chooser">Image Chooser</string>
@@ -32,14 +40,14 @@
     <string name="hello_world">Hello world!</string>
     <string name="action_settings">Settings</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
-    
-    
     <string name="no_network_some_feature_not_available">Some features are not available without a network connection</string>
     <string name="no_internet_available">Not connected with internet. Please try again</string>
-    
     <string name="home_grid_view">Home Grid View</string>
     <string name="grid_progress_view">Home Grid Progress View</string>
     <string name="grid_item_image">Grid Item Image View</string>
     <string name="grid_item_watermark">Grid Item Video View</string>
+    <string name="title_activity_media_options">MediaOptionsActivity</string>
+    <string name="title_activity_image_preview">ImagePreviewActivity</string>
+    <string name="title_activity_media_preview">MediaPreviewActivity</string>
 
 </resources>

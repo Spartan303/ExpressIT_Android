@@ -1,12 +1,11 @@
 # cache for current jar dependency. DO NOT EDIT.
 # format is <lastModified> <length> <SHA-1> <path>
 # Encoding is UTF-8
-1396415289000 25443 326bf4147f100e8a4fdd7f1867a87e969fb10812 /Users/Adnan/Desktop/Github/ExpressIT_Android/Express.it/libs/httpmime-4.0.1.jar
-1396415289000 25443 326bf4147f100e8a4fdd7f1867a87e969fb10812 /Users/Adnan/Desktop/Github/ExpressIT_Android/Express.it/libraries/ADMediaSharingLib/libs/httpmime-4.0.1.jar
-1396415289000 345048 945007627e8d12275d755081a9e609c018e1210d /Users/Adnan/Desktop/Github/ExpressIT_Android/Express.it/libraries/ADMediaSharingLib/libs/apache-mime4j-0.6.jar
-1396415289000 345048 945007627e8d12275d755081a9e609c018e1210d /Users/Adnan/Desktop/Github/ExpressIT_Android/Express.it/libs/apache-mime4j-0.6.jar
-1396415289000 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 /Users/Adnan/Desktop/Github/ExpressIT_Android/Express.it/libraries/ADMediaSharingLib/libs/android-support-v4.jar
-1396415289000 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 /Users/Adnan/Desktop/Github/ExpressIT_Android/Express.it/libs/android-support-v4.jar
-1396415289000 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 /Users/Adnan/Desktop/Github/ExpressIT_Android/Express.it/libraries/appcompat/libs/android-support-v4.jar
-1396415289000 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 /Users/Adnan/Desktop/Github/ExpressIT_Android/Express.it/libraries/ADVideoRecorder/libs/android-support-v4.jar
-1396415289000 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 /Users/Adnan/Desktop/Github/ExpressIT_Android/Express.it/libraries/refreshToPullLib/libs/android-support-v4.jar
+1396423576765 25443 326bf4147f100e8a4fdd7f1867a87e969fb10812 C:\Users\qa1\git\ExpressIT_Android\Express.it\libraries\ADMediaSharingLib\libs\httpmime-4.0.1.jar
+1396423576059 25443 326bf4147f100e8a4fdd7f1867a87e969fb10812 C:\Users\qa1\git\ExpressIT_Android\Express.it\libs\httpmime-4.0.1.jar
+1396423578104 345048 945007627e8d12275d755081a9e609c018e1210d C:\Users\qa1\git\ExpressIT_Android\Express.it\libs\apache-mime4j-0.6.jar
+1396423577701 345048 945007627e8d12275d755081a9e609c018e1210d C:\Users\qa1\git\ExpressIT_Android\Express.it\libraries\ADMediaSharingLib\libs\apache-mime4j-0.6.jar
+1396423574393 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 C:\Users\qa1\git\ExpressIT_Android\Express.it\libraries\appcompat\libs\android-support-v4.jar
+1396423574902 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 C:\Users\qa1\git\ExpressIT_Android\Express.it\libs\android-support-v4.jar
+1396423576501 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 C:\Users\qa1\git\ExpressIT_Android\Express.it\libraries\refreshToPullLib\libs\android-support-v4.jar
+1396423573808 621451 5896b0a4e377ac4242eb2bc785220c1c4fc052f4 C:\Users\qa1\git\ExpressIT_Android\Express.it\libraries\ADMediaSharingLib\libs\android-support-v4.jar

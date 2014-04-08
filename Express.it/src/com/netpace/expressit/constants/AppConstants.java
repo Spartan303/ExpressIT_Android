@@ -16,6 +16,9 @@
 
 package com.netpace.expressit.constants;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import com.ad.videorecorderlib.settings.Config;
 import com.ad.videorecorderlib.settings.Config.ScreenResolution;
 
@@ -32,7 +35,7 @@ public class AppConstants {
 	public final static int MEDIA_THRESHOLD = 100;
 	public final static int MEDIA_CHUNK_SIZE = 20;
 	
-	public final static String DOMAIN_URL = "http://192.168.1.88:8080/xit";
+	public final static String DOMAIN_URL = "http://202.125.129.94:8080/xit";
 	
 	public final static String GET_KEY_URL = "/api/upload/getMediaKey";
 	
@@ -57,6 +60,18 @@ public class AppConstants {
 	public final static String AUTHENTICATED_USER_NAME = "demo";
 	
 	public final static String CRITTERCISM_APP_KEY = "529f0cd38b2e332473000001";
+	
+	@SuppressWarnings("serial")
+	public final static ArrayList<String> IMAGE_EXT_ARRAY = new ArrayList<String>(){{
+		add("png");
+		add("PNG");
+		add("jpeg");
+		add("JPEG");
+		add("jpg");
+		add("JPG");
+		add("gif");
+		add("GIF");
+		}};
 	
 	//ExpressIt
 	public final static String AMAZON_TVM_URL = "http://mpanontvm-env.elasticbeanstalk.com/";

@@ -39,57 +39,27 @@
 
             <requestFocus />
         </com.netpace.expressit.android.ui.TypefaceEditText>
-
-        <ImageView
-            android:id="@+id/imageViewThumb"
-            android:layout_width="@dimen/media_obj_wh"
-            android:layout_height="@dimen/media_obj_wh"
-            android:layout_margin="10dip"
-            android:background="@android:color/transparent"
-            android:onClick="showImageOptionsDialog"
-            android:scaleType="fitXY"
-            android:src="@drawable/ic_launcher" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/bottom_panel"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageView android:id="@+id/imageViewThumb"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:src="@drawable/ic_launcher_ctv"
+        android:padding="10dp"
         android:layout_below="@+id/top_panel"
-        android:layout_marginBottom="10dip"
-        android:layout_marginLeft="10dip"
-        android:layout_marginRight="10dip"
-        android:background="@drawable/layout_border"
-        android:orientation="horizontal" >
-
-        <com.netpace.expressit.android.ui.TypefaceEditText
-            android:id="@+id/story_desc_txt_field"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_margin="10dip"
-            android:background="@android:color/transparent"
-            android:gravity="center_vertical|top|start"
-            android:hint="@string/story_desc"
-            android:inputType="textMultiLine"
-            android:lines="5"
-            android:textAlignment="textStart"
-            android:textColor="@color/text_hint_color"
-            android:textColorHint="@color/text_hint_color"
-            android:textColorLink="@color/text_hint_color"
-            android:textSize="14sp"
-            custom:typeface="HelveticaNeue-Medium" />
-    </LinearLayout>
-
-    <Button
+        android:layout_above="@+id/shareButton"
+        android:contentDescription="@string/imagePreview"/>
+    
+	<Button
         android:id="@+id/shareButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/bottom_panel"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="10dip"
         android:layout_marginLeft="10dip"
         android:layout_marginRight="10dip"
         android:layout_marginTop="3dip"
-        android:text="@string/button_share" />
+        android:text="@string/save_for_later" />
+    
 
 </RelativeLayout>

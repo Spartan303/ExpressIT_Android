@@ -4,6 +4,8 @@ public class Meta {
 	
 	private int width;
 	private int height;
+	
+	private String thumb;
 
 	public Meta() {
 		super();
@@ -25,9 +27,20 @@ public class Meta {
 		this.height = height;
 	}
 
+	public String getThumb() {
+		return thumb;
+	}
+
+	public void setThumb(String thumb) {
+		this.thumb = thumb;
+	}
+
 	@Override
 	public String toString() {
-		return "Meta [width=" + width + ", height=" + height + "]";
+		return "Meta [width=" + width + ", height=" + height + ", thumb="
+				+ thumb + "]";
 	}
+
+	
 	
 }

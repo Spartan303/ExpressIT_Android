@@ -84,7 +84,7 @@ public class Config {
 
 	private Config() {
 		
-		this.mVideoOutputFilePath = "/sdcard/MyApp/";
+		this.mVideoOutputFilePath = "/sdcard/ExpressIT/";
 		this.DEBUG = false;
 		
 		// By default Settings

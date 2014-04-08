@@ -26,7 +26,10 @@ import android.media.MediaPlayer;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.ActionBarActivity;
 import android.view.Display;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
@@ -36,14 +39,12 @@ import com.ad.videorecorderlib.logger.ADLogger;
 import com.ad.videorecorderlib.ui.ADCustomVideoView;
 
 @SuppressLint("NewApi")
-public class ADVideoRecordResultActivity extends Activity {
+public class ADVideoRecordResultActivity extends ActionBarActivity {
 
 	protected static final String TAG = ADVideoRecordResultActivity.class.getSimpleName();
 	
 	private static final String PROCESSED_MEDIA = "MediaResultActivity.PROCESSED_MEDIA";
 	
-	private Button prBackBtn;
-	private Button prEditBtn;
 	private Button prDoneBtn;
 	
 	private ADCustomVideoView videoPreview;
@@ -64,7 +65,11 @@ public class ADVideoRecordResultActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+//		this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+	
+		getSupportActionBar().setDisplayShowHomeEnabled(false);
+		getSupportActionBar().setTitle("Retake");
+		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		
 		prContext = this.getApplicationContext();
 		setContentView(R.layout.media_result);
@@ -75,8 +80,6 @@ public class ADVideoRecordResultActivity extends Activity {
 		}
 		
         Point screenDimenions = getDisplayDimensions();
-		prBackBtn = (Button) findViewById(R.id.backBtn);
-		prEditBtn = (Button) findViewById(R.id.editBtn);
 		prDoneBtn = (Button) findViewById(R.id.doneBtn);
 		
 		videoPreview = (ADCustomVideoView) findViewById(R.id.video_preview);
@@ -87,26 +90,10 @@ public class ADVideoRecordResultActivity extends Activity {
 			
 			@Override
 			public void onPrepared(MediaPlayer mp) {
-				mp.setLooping(true);
+				mp.setLooping(false);
 			}
 		});
 		videoPreview.start();
-
-		prBackBtn.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				ADVideoRecordResultActivity.this.onBackPressed();
-			}
-		});
-		
-		prEditBtn.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				
-			}
-		});
 		
 		prDoneBtn.setOnClickListener(new View.OnClickListener() {
 			
@@ -124,6 +111,34 @@ public class ADVideoRecordResultActivity extends Activity {
 			}
 		});
 	}
+	
+	@Override
+	public boolean onCreateOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		getMenuInflater().inflate(R.menu.menu_video_preview, menu);
+		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		int itemId = item.getItemId();
+		if (itemId == android.R.id.home) {
+			this.onBackPressed();
+			return true;
+		} else if (itemId == R.id.menu_item_edit) {
+			return true;
+		} else {
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
+	public boolean onPrepareOptionsMenu(Menu menu) {
+		// TODO Auto-generated method stub
+		return super.onPrepareOptionsMenu(menu);
+	}
+
+	
 	
 	@Override
 	protected void onSaveInstanceState(Bundle outState) {
